@@ -13,16 +13,9 @@ class RemoteFeedLoader {
         client.load(from: url)
     }
 }
+
 protocol HTTPClient {
     func load(from url: URL?)
-}
-
-class HTTPClientSpy: HTTPClient{
-    var requestedURL: URL? = nil
-    
-    func load(from url: URL? = URL(string: "http://")) {
-        requestedURL = url
-    }
 }
 
 class RemoteFeedLoaderTests: XCTestCase {
@@ -43,10 +36,18 @@ class RemoteFeedLoaderTests: XCTestCase {
         XCTAssertEqual(requestURL, client.requestedURL)
     }
     
-    func makeSUT(requestURL: URL = URL(string: "http://another.com")!) -> (RemoteFeedLoader, HTTPClientSpy){
+    private func makeSUT(requestURL: URL = URL(string: "http://another.com")!) -> (RemoteFeedLoader, HTTPClientSpy){
         let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(client: client, url: requestURL)
         
         return (sut, client)
+    }
+    
+    private class HTTPClientSpy: HTTPClient{
+        var requestedURL: URL? = nil
+        
+        func load(from url: URL? = URL(string: "http://")) {
+            requestedURL = url
+        }
     }
 }
