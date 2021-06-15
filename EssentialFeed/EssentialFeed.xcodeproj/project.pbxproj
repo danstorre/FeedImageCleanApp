@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB49FF7426710799005FC6AF /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB49FF6A26710799005FC6AF /* EssentialFeed.framework */; };
-		DB49FF7926710799005FC6AF /* EssentialFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49FF7826710799005FC6AF /* EssentialFeedTests.swift */; };
 		DB49FF7B26710799005FC6AF /* EssentialFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = DB49FF6D26710799005FC6AF /* EssentialFeed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB49FF85267107C6005FC6AF /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49FF84267107C6005FC6AF /* FeedItem.swift */; };
 		DB49FF8726710812005FC6AF /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49FF8626710812005FC6AF /* FeedLoader.swift */; };
@@ -31,7 +30,6 @@
 		DB49FF6D26710799005FC6AF /* EssentialFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EssentialFeed.h; sourceTree = "<group>"; };
 		DB49FF6E26710799005FC6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB49FF7326710799005FC6AF /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB49FF7826710799005FC6AF /* EssentialFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedTests.swift; sourceTree = "<group>"; };
 		DB49FF7A26710799005FC6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB49FF84267107C6005FC6AF /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		DB49FF8626710812005FC6AF /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 		DB49FF7726710799005FC6AF /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				DB49FF7826710799005FC6AF /* EssentialFeedTests.swift */,
 				DB49FF7A26710799005FC6AF /* Info.plist */,
 				DB49FF8B26712C57005FC6AF /* RemoteFeedLoaderTests.swift */,
 			);
@@ -234,7 +231,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB49FF8C26712C57005FC6AF /* RemoteFeedLoaderTests.swift in Sources */,
-				DB49FF7926710799005FC6AF /* EssentialFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
