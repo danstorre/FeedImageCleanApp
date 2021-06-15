@@ -13,7 +13,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url = URL(string: "https://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
 
-        sut.load()
+        sut.load { _ in }
 
         XCTAssertEqual(client.requestedURLs, [url])
     }
@@ -22,8 +22,8 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url = URL(string: "https://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
 
-        sut.load()
-        sut.load()
+        sut.load { _ in }
+        sut.load { _ in }
 
         XCTAssertEqual(client.requestedURLs, [url, url])
     }
@@ -31,13 +31,13 @@ class RemoteFeedLoaderTests: XCTestCase {
     func test_load_outputsConnectivityErrorWhenHTTPClientFails() {
         let (sut, client) = makeSUT()
         
-        var completionError: [RemoteFeedLoader.Error] = []
-        sut.load { error in completionError.append(error)}
+        var capturedErrors = [RemoteFeedLoader.Error]()
+        sut.load { error in capturedErrors.append(error)}
         
         let error = NSError(domain: "", code: 0, userInfo: nil)
         client.complete(with: error, at: 0)
         
-        XCTAssertEqual(completionError, [.connectivityError])
+        XCTAssertEqual(capturedErrors, [.connectivityError])
     }
     
     func test_load_outputsInvalidDataWhenHTTPClientsReturnsNon200Response() {
@@ -45,11 +45,11 @@ class RemoteFeedLoaderTests: XCTestCase {
         
         let samples = [199,201,300,400,500]
         samples.enumerated().forEach { index, code in
-            var errorResponse: [RemoteFeedLoader.Error] = []
-            sut.load(completion: { error in errorResponse.append(error) })
+            var capturedErrors = [RemoteFeedLoader.Error]()
+            sut.load(completion: { error in capturedErrors.append(error) })
             
             client.completeWithResponseError(with: code, at: index)
-            XCTAssertEqual(errorResponse, [.invalidData])
+            XCTAssertEqual(capturedErrors, [.invalidData])
         }
     }
 
