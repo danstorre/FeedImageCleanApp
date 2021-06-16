@@ -32,12 +32,12 @@ class RemoteFeedLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         var capturedErrors = [RemoteFeedLoader.Error]()
-        sut.load { error in capturedErrors.append(error)}
+        sut.load { capturedErrors.append($0) }
         
-        let error = NSError(domain: "", code: 0, userInfo: nil)
-        client.complete(with: error, at: 0)
+        let error = NSError(domain: "Test", code: 0)
+        client.complete(with: error)
         
-        XCTAssertEqual(capturedErrors, [.connectivityError])
+        XCTAssertEqual(capturedErrors, [.connectivity])
     }
     
     func test_load_outputsInvalidDataWhenHTTPClientsReturnsNon200Response() {
@@ -46,7 +46,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let samples = [199,201,300,400,500]
         samples.enumerated().forEach { index, code in
             var capturedErrors = [RemoteFeedLoader.Error]()
-            sut.load(completion: { error in capturedErrors.append(error) })
+            sut.load { error in capturedErrors.append(error) }
             
             client.completeWithResponseError(with: code, at: index)
             XCTAssertEqual(capturedErrors, [.invalidData])
@@ -70,22 +70,22 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
         
         func get(from url: URL, completion: @escaping (HTTPClientResponse) -> ()) {
-            messages.append((url: url,
-                             completion: completion))
+            messages.append((url, completion))
         }
         
-        func complete(with error: Error, at index: Int) {
+        func complete(with error: Error, at index: Int = 0) {
             messages[index].completion(.failure(error))
         }
         
-        func completeWithResponseError(with code: Int, at index: Int) {
-            let httpResponse = HTTPURLResponse(url: requestedURLs[index],
-                                                    statusCode: code,
-                                                    httpVersion: nil,
-                                                    headerFields: nil)!
+        func completeWithResponseError(with code: Int, at index: Int = 0) {
+            let httpResponse = HTTPURLResponse(
+                url: requestedURLs[index],
+                statusCode: code,
+                httpVersion: nil,
+                headerFields: nil
+            )!
             
             messages[index].completion(.success(httpResponse))
-
         }
     }
 

@@ -6,7 +6,7 @@ public enum HTTPClientResponse {
 }
 
 public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (HTTPClientResponse) -> ())
+    func get(from url: URL, completion: @escaping (HTTPClientResponse) -> Void)
 }
 
 public final class RemoteFeedLoader {
@@ -14,7 +14,7 @@ public final class RemoteFeedLoader {
     private let client: HTTPClient
     
     public enum Error: Swift.Error {
-        case connectivityError
+        case connectivity
         case invalidData
     }
 
@@ -29,7 +29,7 @@ public final class RemoteFeedLoader {
             case .success:
                 completion(.invalidData)
             case .failure:
-                completion(.connectivityError)
+                completion(.connectivity)
             }
         }
     }
