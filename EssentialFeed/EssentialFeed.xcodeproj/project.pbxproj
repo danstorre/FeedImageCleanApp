@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AF34FC1268F4BA000E13EC1 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF34FC0268F4BA000E13EC1 /* HTTPClient.swift */; };
 		DB49FF7426710799005FC6AF /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB49FF6A26710799005FC6AF /* EssentialFeed.framework */; };
 		DB49FF7B26710799005FC6AF /* EssentialFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = DB49FF6D26710799005FC6AF /* EssentialFeed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB49FF85267107C6005FC6AF /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49FF84267107C6005FC6AF /* FeedItem.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AF34FC0268F4BA000E13EC1 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		DB49FF6A26710799005FC6AF /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB49FF6D26710799005FC6AF /* EssentialFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EssentialFeed.h; sourceTree = "<group>"; };
 		DB49FF6E26710799005FC6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		DB49FFA02673B18E005FC6AF /* Remote Feed Loader */ = {
 			isa = PBXGroup;
 			children = (
+				1AF34FC0268F4BA000E13EC1 /* HTTPClient.swift */,
 				DB49FFA12673B1A2005FC6AF /* RemoteFeedLoader.swift */,
 			);
 			path = "Remote Feed Loader";
@@ -222,6 +225,7 @@
 			files = (
 				DB49FF8726710812005FC6AF /* FeedLoader.swift in Sources */,
 				DB49FFA22673B1A2005FC6AF /* RemoteFeedLoader.swift in Sources */,
+				1AF34FC1268F4BA000E13EC1 /* HTTPClient.swift in Sources */,
 				DB49FF85267107C6005FC6AF /* FeedItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
