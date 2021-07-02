@@ -1,9 +1,3 @@
-//
-//  HTTPClient.swift
-//  EssentialFeed
-//
-//  Created by Daniel Torres on 7/2/21.
-//
 
 import Foundation
 
