@@ -29,8 +29,6 @@ class URLSessionHTTPClientTests: XCTestCase {
     // MARK: - Helpers
     
     class URLSessionSpy: URLSession {
-        var receivedURLs = [URL]()
-        
         private var stubs = [URL: URLSessionDataTask]()
         
         func stub(url: URL, task: URLSessionDataTask) {
