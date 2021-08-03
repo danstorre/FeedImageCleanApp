@@ -1,7 +1,7 @@
 import XCTest
 import EssentialFeed
 
-class HTTPSessionHTTPClient {
+class URLSessionHTTPClient {
     let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
@@ -43,7 +43,7 @@ class HTTPSessionHTTPClientTests: XCTestCase {
             exp.fulfill()
         }
         
-        HTTPSessionHTTPClient().get(from: url) { _ in }
+        makeSUT().get(from: url) { _ in }
         
         wait(for: [exp], timeout: 1.0)
     }
@@ -54,11 +54,9 @@ class HTTPSessionHTTPClientTests: XCTestCase {
         
         URLProtocolStub.stub(data: nil, response: nil, error: requestError)
         
-        let sut = HTTPSessionHTTPClient()
-        
         let expec = XCTestExpectation(description: "wait for service to finish.")
         
-        sut.get(from: url, completion: { result in
+        makeSUT().get(from: url, completion: { result in
             switch result {
             case let .failure(receivedError as NSError):
                 XCTAssertEqual(receivedError.domain, requestError.domain)
@@ -74,6 +72,9 @@ class HTTPSessionHTTPClientTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    private func makeSUT() -> URLSessionHTTPClient {
+        return URLSessionHTTPClient()
+    }
     
     class URLProtocolStub: URLProtocol {
         private static var stub: Stub?
