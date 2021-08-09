@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.5.app
+    - name: List Xcode versions
+      run: ls -n /Applications/ | grep Xcode*
 
-    - name: Build and Test
-      run: xcodebuild clean build test -project EssentialFeed/EssentialFeed.xcodeproj -scheme CI CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    # - name: Build and Test
+    #   run: xcodebuild clean build test -project EssentialFeed/EssentialFeed.xcodeproj -scheme CI CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
