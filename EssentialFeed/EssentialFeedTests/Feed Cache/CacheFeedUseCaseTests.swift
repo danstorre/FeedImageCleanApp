@@ -1,50 +1,6 @@
-//
-//  CacheFeedUseCaseTests.swift
-//  EssentialFeedTests
-//
-//  Created by Daniel Torres on 10/27/21.
-//
 
 import XCTest
 import EssentialFeed
-
-class LocalFeedLoader {
-    private let store: FeedStore
-    private let currentDate: () -> Date
-    
-    typealias SaveResult = Error?
-    
-    init(store: FeedStore, currentDate: @escaping () -> Date = Date.init) {
-        self.store = store
-        self.currentDate = currentDate
-    }
-    
-    func save(_ items: [FeedItem], completion: @escaping (SaveResult) -> Void) {
-        store.deleteCachedFeed { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                completion(error)
-            } else {
-                self.cache(items: items, completion: completion)
-            }
-        }
-    }
-    
-    func cache(items: [FeedItem], completion: @escaping (SaveResult) -> Void) {
-        store.insert(items, timestamp: currentDate(), completion: { [weak self] insertionError in
-            guard self != nil else { return }
-            completion(insertionError)
-        })
-    }
-}
-
-protocol FeedStore {
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
-    
-    func deleteCachedFeed(completion: @escaping DeletionCompletion)
-    func insert(_ items: [FeedItem], timestamp: Date, completion: @escaping InsertionCompletion)
-}
 
 class CacheFeedUseCaseTests: XCTestCase {
 
