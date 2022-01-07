@@ -13,9 +13,18 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
     func test_load_requestsCacheLoad() {
         let (sut, store) = makeSUT()
         
-        sut.load()
+        sut.load() { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
+    func test_load_failOnRetrieveError() {
+        let (sut, store) = makeSUT()
+        let retrieveError = anyNSError()
+        
+        expect(sut, toCompleteWith: retrieveError, when: {
+            store.completeRetrieve(with: retrieveError)
+        })
     }
     
     // MARK:- Helpers
@@ -28,4 +37,23 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
+    private func anyNSError() -> NSError {
+        return NSError(domain: "a domain error", code: 1, userInfo: nil)
+    }
+    
+    private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedError: NSError?, when action: () -> Void,
+                        file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Wait for load completion")
+        
+        var receivedError: Error?
+        sut.load { error in
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        action()
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
+    }
 }
