@@ -2,6 +2,7 @@
 import Foundation
 
 public enum FeedStoreResult {
+    case found(local: [LocalFeedImage], timestamp: Date)
     case failure(error: Error)
     case empty
 }

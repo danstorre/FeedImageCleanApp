@@ -54,4 +54,8 @@ internal class FeedStoreSpy: FeedStore  {
     func completeWithEmptyCache(at index: Int = 0) {
         retrieveCompletions[index](.empty)
     }
+    
+    func completeWith(items: [LocalFeedImage], timestamp: Date, at index: Int = 0) {
+        retrieveCompletions[index](.found(local: items, timestamp: timestamp))
+    }
 }

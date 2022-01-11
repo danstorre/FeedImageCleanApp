@@ -4,6 +4,7 @@ import Foundation
 public final class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
+    private let calendar = Calendar(identifier: .gregorian)
     
     public typealias SaveResult = Error?
     public typealias LoadResult = LoadFeedResult
@@ -32,19 +33,37 @@ public final class LocalFeedLoader {
     }
     
     public func load(completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { feedStoreResult in
+        store.retrieve { [unowned self] feedStoreResult in
             switch feedStoreResult {
-            case .empty:
+            case .empty, .found:
                 completion(.success([]))
             case let .failure(error: error):
                 completion(.failure(error))
+            case let .found(local: items, timestamp: timestamp) where self.validate(timestamp):
+                completion(.success(items.toModel()))
             }
         }
+    }
+    
+    static let maxDaysInCache = 7
+    
+    func validate(_ timestamp: Date) -> Bool {
+        guard let maxAge = calendar.date(byAdding: .day, value: Self.maxDaysInCache, to: currentDate()) else {
+            return false
+        }
+        
+        return timestamp < maxAge
     }
 }
 
 private extension Array where Element == FeedImage {
     func toLocal() -> [LocalFeedImage] {
         self.map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
+    }
+}
+
+private extension Array where Element == LocalFeedImage {
+    func toModel() -> [FeedImage] {
+        self.map { FeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url) }
     }
 }
