@@ -35,15 +35,25 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
         })
     }
     
-    func test_load_deliversEmptyItemsWhenCacheIsMoreThanSevenDaysOld() {
-        let now = Date()
-        let currentDate = { now }
+    func test_load_deliversItemsWhenCacheOnLessThanSevenDaysOld() {
+        let currentDate = Date()
         let uniqueFeed = uniqueFeed()
-        let moreThanSevenDaysOld = now.adding(days: 7).adding(seconds: 1)
-        let (sut, store) = makeSUT(currentDate: currentDate)
+        let moreThanSevenDaysOld = currentDate.adding(days: -7).adding(seconds: 1)
+        let (sut, store) = makeSUT(currentDate: { currentDate })
+        
+        expect(sut, toCompleteWith: .success(uniqueFeed.models), when: {
+            store.completeWith(items: uniqueFeed.local, timestamp: moreThanSevenDaysOld)
+        })
+    }
+    
+    func test_load_deliversEmptyItemsWhenCacheIsMoreThanSevenDaysOld() {
+        let currentDate = Date()
+        let uniqueFeed = uniqueFeed()
+        let sevenDaysOld = currentDate.adding(days: -7)
+        let (sut, store) = makeSUT(currentDate: { currentDate })
         
         expect(sut, toCompleteWith: .success([]), when: {
-            store.completeWith(items: uniqueFeed.local, timestamp: moreThanSevenDaysOld)
+            store.completeWith(items: uniqueFeed.local, timestamp: sevenDaysOld)
         })
     }
     

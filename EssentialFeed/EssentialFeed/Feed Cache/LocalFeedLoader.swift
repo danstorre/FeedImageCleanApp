@@ -35,24 +35,24 @@ public final class LocalFeedLoader {
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [unowned self] feedStoreResult in
             switch feedStoreResult {
-            case .empty, .found:
-                completion(.success([]))
-            case let .failure(error: error):
-                completion(.failure(error))
             case let .found(local: items, timestamp: timestamp) where self.validate(timestamp):
                 completion(.success(items.toModel()))
+            case let .failure(error: error):
+                completion(.failure(error))
+            case .empty, .found:
+                completion(.success([]))
             }
         }
     }
     
-    static let maxDaysInCache = 7
+    static let maxDaysInCache = -7
     
     func validate(_ timestamp: Date) -> Bool {
         guard let maxAge = calendar.date(byAdding: .day, value: Self.maxDaysInCache, to: currentDate()) else {
             return false
         }
         
-        return timestamp < maxAge
+        return timestamp > maxAge
     }
 }
 
