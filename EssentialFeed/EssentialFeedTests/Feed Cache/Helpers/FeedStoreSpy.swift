@@ -48,6 +48,10 @@ internal class FeedStoreSpy: FeedStore  {
     }
     
     func completeRetrieve(with error: NSError, at index: Int = 0) {
-        retrieveCompletions[index](error)
+        retrieveCompletions[index](.failure(error: error))
+    }
+    
+    func completeWithEmptyCache(at index: Int = 0) {
+        retrieveCompletions[index](.empty)
     }
 }

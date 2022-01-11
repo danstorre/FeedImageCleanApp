@@ -22,8 +22,16 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let retrieveError = anyNSError()
         
-        expect(sut, toCompleteWith: retrieveError, when: {
+        expect(sut, toCompleteWith: .failure(retrieveError), when: {
             store.completeRetrieve(with: retrieveError)
+        })
+    }
+    
+    func test_load_deliversEmptyItemsOnEmptyCache() {
+        let (sut, store) = makeSUT()
+        
+        expect(sut, toCompleteWith: .success([]), when: {
+            store.completeWithEmptyCache()
         })
     }
     
@@ -41,19 +49,25 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
         return NSError(domain: "a domain error", code: 1, userInfo: nil)
     }
     
-    private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedError: NSError?, when action: () -> Void,
+    private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedLoadResult: LocalFeedLoader.LoadResult, when action: () -> Void,
                         file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedError: Error?
-        sut.load { error in
-            receivedError = error
+        sut.load { receivedResult in
+            switch (receivedResult, expectedLoadResult) {
+            case let (.success(receivedItems), .success(expectedItems)):
+                XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError as NSError?, expectedError as NSError?, file: file, line: line)
+            default:
+                XCTFail("expected \(expectedLoadResult), got \(receivedResult).")
+            }
+            
             exp.fulfill()
         }
         
         action()
         
         wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
     }
 }
