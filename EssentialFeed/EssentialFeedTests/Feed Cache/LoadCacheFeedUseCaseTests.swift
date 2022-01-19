@@ -38,11 +38,11 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
     func test_load_deliversItemsWhenCacheOnLessThanSevenDaysOld() {
         let currentDate = Date()
         let uniqueFeed = uniqueFeed()
-        let lessThanSevenDaysOldCache = currentDate.adding(days: -7).adding(seconds: 1)
+        let lessThanSevenDaysOldTimestamp = currentDate.adding(days: -7).adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { currentDate })
         
         expect(sut, toCompleteWith: .success(uniqueFeed.models), when: {
-            store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldCache)
+            store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldTimestamp)
         })
     }
     
@@ -81,14 +81,27 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
     func test_load_doesNotDeleteCacheOnLessThanSevenDaysOldCache() {
         let currentDate = Date()
         let uniqueFeed = uniqueFeed()
-        let lessThanSevenDaysOldCache = currentDate.adding(days: -7).adding(seconds: 1)
+        let lessThanSevenDaysOldTimestamp = currentDate.adding(days: -7).adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { currentDate })
         
         sut.load(completion: { _ in })
         
-        store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldCache)
+        store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldTimestamp)
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
+    func test_load_deletesCacheOnSevenDaysOldCache() {
+        let currentDate = Date()
+        let uniqueFeed = uniqueFeed()
+        let sevenDaysOldTimestamp = currentDate.adding(days: -7)
+        let (sut, store) = makeSUT(currentDate: { currentDate })
+        
+        sut.load(completion: { _ in })
+        
+        store.completeWith(items: uniqueFeed.local, timestamp: sevenDaysOldTimestamp)
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
     
     // MARK:- Helpers
