@@ -38,11 +38,11 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
     func test_load_deliversItemsWhenCacheOnLessThanSevenDaysOld() {
         let currentDate = Date()
         let uniqueFeed = uniqueFeed()
-        let moreThanSevenDaysOld = currentDate.adding(days: -7).adding(seconds: 1)
+        let lessThanSevenDaysOldCache = currentDate.adding(days: -7).adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { currentDate })
         
         expect(sut, toCompleteWith: .success(uniqueFeed.models), when: {
-            store.completeWith(items: uniqueFeed.local, timestamp: moreThanSevenDaysOld)
+            store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldCache)
         })
     }
     
@@ -74,6 +74,19 @@ class LoadCacheFeedUseCaseTests: XCTestCase {
         sut.load(completion: { _ in })
         
         store.completeWithEmptyCache()
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
+    func test_load_doesNotDeleteCacheOnLessThanSevenDaysOldCache() {
+        let currentDate = Date()
+        let uniqueFeed = uniqueFeed()
+        let lessThanSevenDaysOldCache = currentDate.adding(days: -7).adding(seconds: 1)
+        let (sut, store) = makeSUT(currentDate: { currentDate })
+        
+        sut.load(completion: { _ in })
+        
+        store.completeWith(items: uniqueFeed.local, timestamp: lessThanSevenDaysOldCache)
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
