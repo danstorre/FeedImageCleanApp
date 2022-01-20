@@ -41,7 +41,6 @@ public final class LocalFeedLoader {
                 completion(.success(items.toModel()))
                 
             case let .failure(error: error):
-                self.store.deleteCachedFeed(completion: { _ in })
                 completion(.failure(error))
                 
             case .found:
@@ -52,6 +51,11 @@ public final class LocalFeedLoader {
                 completion(.success([]))
             }
         }
+    }
+    
+    public func validateCache() {
+        store.retrieve { _ in }
+        store.deleteCachedFeed { _ in }
     }
     
     static let maxDaysInCache = -7
