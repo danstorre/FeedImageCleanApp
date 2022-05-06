@@ -39,7 +39,8 @@ class URLSessionHTTPClientTests: XCTestCase {
 		
 		let receivedError = resultErrorFor(data: nil, response: nil, error: requestError)
 		
-		XCTAssertEqual(receivedError as NSError?, requestError)
+        XCTAssertEqual((receivedError as NSError?)?.code, requestError.code)
+        XCTAssertEqual((receivedError as NSError?)?.domain, requestError.domain)
 	}
 	
 	func test_getFromURL_failsOnAllInvalidRepresentationCases() {
@@ -96,7 +97,8 @@ class URLSessionHTTPClientTests: XCTestCase {
 		}
 	}
 
-	private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #file, line: UInt = #line) -> Error? {
+	private func
+    resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #file, line: UInt = #line) -> Error? {
 		let result = resultFor(data: data, response: response, error: error, file: file, line: line)
 		
 		switch result {
