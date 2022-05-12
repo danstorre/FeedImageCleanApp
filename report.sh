@@ -15,3 +15,7 @@ echo "Swift file count, $SFC, N/A" >> $production_file_name
 
 # Add Avarage LOC per file
 echo "Swift file count, $(($LOC/$SFC)), <100" >> $production_file_name
+
+# Add TODO comment count
+TODOC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep TODO | wc -l)
+echo "TODO comment count, $TODOC, 0" >> $production_file_name
