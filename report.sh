@@ -12,3 +12,6 @@ echo "Total LOC, $LOC, N/A" >> $production_file_name
 # Add Swift file count
 SFC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -type f | wc -l)
 echo "Swift file count, $SFC, N/A" >> $production_file_name
+
+# Add Avarage LOC per file
+echo "Swift file count, $(($LOC/$SFC)), <100" >> $production_file_name
