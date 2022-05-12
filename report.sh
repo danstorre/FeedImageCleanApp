@@ -23,3 +23,7 @@ echo "TODO comment count, $TODOC, 0" >> $production_file_name
 # Add FIX comment count
 FIXC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep FIX | wc -l)
 echo "FIX comment count, $FIXC, 0" >> $production_file_name
+
+# Add ! comment count
+UNWRAPC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep "\.*\w!\.*" | wc -l)
+echo "'Optional' force unwrap (!) count, $UNWRAPC, 0" >> $production_file_name
