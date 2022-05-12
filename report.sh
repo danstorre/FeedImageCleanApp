@@ -31,3 +31,7 @@ echo "'Optional' force unwrap (!) count, $UNWRAPC, 0" >> $production_file_name
 # Add unwoned comment count
 UNOWNEDC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep "\[unowned" | wc -l)
 echo "unowned reference count, $UNOWNEDC, 0" >> $production_file_name
+
+# Add number of tabs per line
+TABSC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep "\t" | awk -F '.swift:' '{print $NF}' | awk -F'\t' '{ print NF-2 }' | sort -n | tail -n 1)
+echo "Max indentation level, $TABSC, <=5" >> $production_file_name
