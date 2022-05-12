@@ -27,3 +27,7 @@ echo "FIX comment count, $FIXC, 0" >> $production_file_name
 # Add ! comment count
 UNWRAPC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep "\.*\w!\.*" | wc -l)
 echo "'Optional' force unwrap (!) count, $UNWRAPC, 0" >> $production_file_name
+
+# Add unwoned comment count
+UNOWNEDC=$(find -s EssentialFeed/EssentialFeed -iname "*.swift" -print0 -type f | xargs -0 grep "\[unowned" | wc -l)
+echo "unowned reference count, $UNOWNEDC, 0" >> $production_file_name
