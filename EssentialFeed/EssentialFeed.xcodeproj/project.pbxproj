@@ -86,6 +86,7 @@
 		08EFE6C022D63E8D00DA417A /* FeedUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EFE6BF22D63E8D00DA417A /* FeedUIComposer.swift */; };
 		08FC5AAA22D5F47900148E12 /* FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FC5AA922D5F47900148E12 /* FeedImageDataLoader.swift */; };
 		FBC9ADB22919F98600E0BEFC /* FeedPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC9ADB12919F98600E0BEFC /* FeedPresenterTests.swift */; };
+		FBC9ADC0291A05F200E0BEFC /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBC9ADBE291A05EB00E0BEFC /* Feed.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,9 @@
 		08EFE6BF22D63E8D00DA417A /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
 		08FC5AA922D5F47900148E12 /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 		FBC9ADB12919F98600E0BEFC /* FeedPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenterTests.swift; sourceTree = "<group>"; };
+		FBC9ADBD291A05EB00E0BEFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
+		FBC9ADBF291A05F000E0BEFC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Feed.strings; sourceTree = "<group>"; };
+		FBC9ADC1291A05F200E0BEFC /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Feed.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -571,6 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				FBC9ADB12919F98600E0BEFC /* FeedPresenterTests.swift */,
+				FBC9ADBE291A05EB00E0BEFC /* Feed.strings */,
 			);
 			path = "Feed Presentation";
 			sourceTree = "<group>";
@@ -776,6 +781,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBC9ADC0291A05F200E0BEFC /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -958,6 +964,16 @@
 				08CFB1A3230C1FBF008608CB /* en */,
 				08CFB1A5230C1FF3008608CB /* pt-BR */,
 				08CFB1A6230C204E008608CB /* el */,
+			);
+			name = Feed.strings;
+			sourceTree = "<group>";
+		};
+		FBC9ADBE291A05EB00E0BEFC /* Feed.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBC9ADBD291A05EB00E0BEFC /* en */,
+				FBC9ADBF291A05F000E0BEFC /* el */,
+				FBC9ADC1291A05F200E0BEFC /* pt-BR */,
 			);
 			name = Feed.strings;
 			sourceTree = "<group>";
