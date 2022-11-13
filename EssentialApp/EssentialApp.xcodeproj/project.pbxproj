@@ -24,6 +24,7 @@
 		0895DAAE234B3F7E0031BB2D /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0895DAAA234B3F7E0031BB2D /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7C035929219EEE00DD9409 /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C035829219EEE00DD9409 /* FeedLoaderStub.swift */; };
 		FB7C035B2921A00200DD9409 /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C035A2921A00200DD9409 /* XCTestCase+FeedLoader.swift */; };
+		FB7C035F2921A87000DD9409 /* FeedLoaderCacheDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C035E2921A87000DD9409 /* FeedLoaderCacheDecorator.swift */; };
 		FBA1EA6029219D0D00164255 /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA1EA5F29219D0D00164255 /* FeedLoaderCacheDecoratorTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		0895DAAA234B3F7E0031BB2D /* EssentialFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB7C035829219EEE00DD9409 /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
 		FB7C035A2921A00200DD9409 /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
+		FB7C035E2921A87000DD9409 /* FeedLoaderCacheDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecorator.swift; sourceTree = "<group>"; };
 		FBA1EA5F29219D0D00164255 /* FeedLoaderCacheDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecoratorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +130,7 @@
 		0895DA85234B3B950031BB2D /* EssentialApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB7C035E2921A87000DD9409 /* FeedLoaderCacheDecorator.swift */,
 				0895DA86234B3B950031BB2D /* AppDelegate.swift */,
 				0895DA88234B3B950031BB2D /* SceneDelegate.swift */,
 				085BB637235A279C0013B282 /* FeedLoaderWithFallbackComposite.swift */,
@@ -267,6 +270,7 @@
 				082C00012359E3B2008927D3 /* FeedImageDataLoaderWithFallbackComposite.swift in Sources */,
 				0895DA87234B3B950031BB2D /* AppDelegate.swift in Sources */,
 				085BB638235A279D0013B282 /* FeedLoaderWithFallbackComposite.swift in Sources */,
+				FB7C035F2921A87000DD9409 /* FeedLoaderCacheDecorator.swift in Sources */,
 				0895DA89234B3B950031BB2D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
