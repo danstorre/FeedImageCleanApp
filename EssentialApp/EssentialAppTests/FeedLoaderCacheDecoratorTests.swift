@@ -24,4 +24,11 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
         
         expect(sut, toCompleteWith: .success(feed))
     }
+    
+    func test_load_deliversErrorOnLoaderFailure() {
+        let loader = FeedLoaderStub(result: .failure(anyNSError()))
+        let sut = FeedLoaderCacheDecorator(decoratee: loader)
+        
+        expect(sut, toCompleteWith: .failure(anyNSError()))
+    }
 }
