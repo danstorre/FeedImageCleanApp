@@ -23,8 +23,8 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
 		refresh()
 	}
     
-    public func setModel(table: [FeedImageCellController]) {
-        tableModel = table
+    public func display(_ model: [FeedImageCellController]) {
+        tableModel = model
     }
 	
 	@IBAction private func refresh() {
