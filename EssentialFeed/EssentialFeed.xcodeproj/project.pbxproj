@@ -87,6 +87,7 @@
 		FB62B01D2924854300E28AF7 /* FeedImageDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B01C2924854300E28AF7 /* FeedImageDataCache.swift */; };
 		FB62B0452926A7D400E28AF7 /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0442926A7D400E28AF7 /* FeedSnapshotTests.swift */; };
 		FB62B0482926AA0500E28AF7 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0472926AA0500E28AF7 /* UIImage+TestHelpers.swift */; };
+		FB62B04A2926AB8E00E28AF7 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0492926AB8E00E28AF7 /* UITableView+HeaderSizing.swift */; };
 		FB7C035D2921A79A00DD9409 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C035C2921A79A00DD9409 /* FeedCache.swift */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +208,7 @@
 		FB62B01C2924854300E28AF7 /* FeedImageDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataCache.swift; sourceTree = "<group>"; };
 		FB62B0442926A7D400E28AF7 /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
 		FB62B0472926AA0500E28AF7 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
+		FB62B0492926AB8E00E28AF7 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
 		FB7C035C2921A79A00DD9409 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -473,6 +475,7 @@
 				0822D0F423058078004B3345 /* UITableView+Dequeueing.swift */,
 				0822D0F6230581D2004B3345 /* UIImageView+Animations.swift */,
 				08A3F2BA232BA64700127C15 /* UIRefreshControl+Helpers.swift */,
+				FB62B0492926AB8E00E28AF7 /* UITableView+HeaderSizing.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB62B04A2926AB8E00E28AF7 /* UITableView+HeaderSizing.swift in Sources */,
 				08A3F2B2232AA1C200127C15 /* ErrorView.swift in Sources */,
 				08A3F2BB232BA64700127C15 /* UIRefreshControl+Helpers.swift in Sources */,
 				08B5EB5022CE328100FE8683 /* UIView+Shimmering.swift in Sources */,
