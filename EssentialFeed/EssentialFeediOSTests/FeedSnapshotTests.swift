@@ -3,20 +3,20 @@ import EssentialFeediOS
 @testable import EssentialFeed
 
 class FeedSnapshotTests: XCTestCase {
-
+    
     func test_emptyFeed() {
         let sut = makeSUT()
-
+        
         sut.display(emptyFeed())
-
+        
         record(snapshot: sut.snapshot(), named: "EMPTY_FEED")
     }
     
     func test_feedWithContent() {
         let sut = makeSUT()
-
+        
         sut.display(feedWithContent())
-
+        
         record(snapshot: sut.snapshot(), named: "FEED_WITH_CONTENT")
     }
     
@@ -27,7 +27,15 @@ class FeedSnapshotTests: XCTestCase {
         
         record(snapshot: sut.snapshot(), named: "FEED_WITH_ERROR_MESSAGE")
     }
-
+    
+    func test_feedWithFailedImageLoading() {
+        let sut = makeSUT()
+        
+        sut.display(feedWithFailedImageLoading())
+        
+        record(snapshot: sut.snapshot(), named: "FEED_WITH_FAILED_IMAGE_LOADING")
+    }
+    
     // MARK: - Helpers
     private func makeSUT() -> FeedViewController {
         let bundle = Bundle(for: FeedViewController.self)
@@ -36,7 +44,7 @@ class FeedSnapshotTests: XCTestCase {
         controller.loadViewIfNeeded()
         return controller
     }
-
+    
     private func emptyFeed() -> [FeedImageCellController] {
         return []
     }
@@ -55,24 +63,39 @@ class FeedSnapshotTests: XCTestCase {
             )
         ]
     }
-
+    
+    private func feedWithFailedImageLoading() -> [ImageStub] {
+        return [
+            ImageStub(
+                description: nil,
+                location: "Cannon Street, London",
+                image: nil
+            ),
+            ImageStub(
+                description: nil,
+                location: "Brighton Seafront",
+                image: nil
+            )
+        ]
+    }
+    
     private func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
         guard let snapshotData = snapshot.pngData() else {
             XCTFail("Failed to generate PNG data representation from snapshot", file: file, line: line)
             return
         }
-
+        
         let snapshotURL = URL(fileURLWithPath: String(describing: file))
             .deletingLastPathComponent()
             .appendingPathComponent("snapshots")
             .appendingPathComponent("\(name).png")
-
+        
         do {
             try FileManager.default.createDirectory(
                 at: snapshotURL.deletingLastPathComponent(),
                 withIntermediateDirectories: true
             )
-
+            
             try snapshotData.write(to: snapshotURL)
         } catch {
             XCTFail("Failed to record snapshot with error: \(error)", file: file, line: line)
@@ -87,7 +110,7 @@ private extension FeedViewController {
             stub.controller = cellController
             return cellController
         }
-
+        
         display(cells)
     }
 }
@@ -104,7 +127,7 @@ extension UIViewController {
 private class ImageStub: FeedImageCellControllerDelegate {
     let viewModel: FeedImageViewModel<UIImage>
     weak var controller: FeedImageCellController?
-
+    
     init(description: String?, location: String?, image: UIImage?) {
         viewModel = FeedImageViewModel(
             description: description,
@@ -113,10 +136,10 @@ private class ImageStub: FeedImageCellControllerDelegate {
             isLoading: false,
             shouldRetry: image == nil)
     }
-
+    
     func didRequestImage() {
         controller?.display(viewModel)
     }
-
+    
     func didCancelImageRequest() {}
 }
