@@ -60,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         decoratee: remoteImageLoader,
                         cache: localImageLoader))))
         
-        window?.makeKey()
+        window?.makeKeyAndVisible()
 	}
     
     func sceneWillResignActive(_ scene: UIScene) {
