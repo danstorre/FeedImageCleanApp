@@ -1,1 +1,0 @@
-![](https://github.com/essentialdevelopercom/essential-feed-case-study/workflows/Deploy/badge.svg)
