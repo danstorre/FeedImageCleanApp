@@ -34,6 +34,7 @@
 		FB62B03F2925C3D300E28AF7 /* FeedUIIntegrationTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0352925C3D300E28AF7 /* FeedUIIntegrationTests+Assertions.swift */; };
 		FB62B0412925C43200E28AF7 /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0402925C43200E28AF7 /* FeedUIIntegrationTests.swift */; };
 		FB62B0432925C57B00E28AF7 /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0422925C57B00E28AF7 /* FeedAcceptanceTests.swift */; };
+		FB83F479292F0FE60096153E /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83F478292F0FE60096153E /* CombineHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		FB62B0362925C3D300E28AF7 /* FeedUIIntegrationTests+LoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedUIIntegrationTests+LoaderSpy.swift"; sourceTree = "<group>"; };
 		FB62B0402925C43200E28AF7 /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
 		FB62B0422925C57B00E28AF7 /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
+		FB83F478292F0FE60096153E /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				0895DA8F234B3B970031BB2D /* Assets.xcassets */,
 				0895DA91234B3B970031BB2D /* LaunchScreen.storyboard */,
 				0895DA94234B3B970031BB2D /* Info.plist */,
+				FB83F478292F0FE60096153E /* CombineHelpers.swift */,
 			);
 			path = EssentialApp;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				FB62B0282925C3B200E28AF7 /* FeedImageDataLoaderPresentationAdapter.swift in Sources */,
 				FB62B02D2925C3B200E28AF7 /* FeedLoaderPresentationAdapter.swift in Sources */,
 				0895DA89234B3B950031BB2D /* SceneDelegate.swift in Sources */,
+				FB83F479292F0FE60096153E /* CombineHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
