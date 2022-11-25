@@ -3,40 +3,6 @@ import EssentialFeed
 
 class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     
-    func test_init_doesNotRequestDataFromURL() {
-        let (_, client) = makeSUT()
-        
-        XCTAssertTrue(client.requestedURLs.isEmpty)
-    }
-    
-    func test_load_requestsDataFromURL() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestedURLs, [url])
-    }
-    
-    func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        sut.load { _ in }
-        sut.load { _ in }
-        
-        XCTAssertEqual(client.requestedURLs, [url, url])
-    }
-    
-    func test_load_deliversErrorOnClientError() {
-        let (sut, client) = makeSUT()
-        
-        expect(sut, toCompleteWith: failure(.connectivity), when: {
-            let clientError = NSError(domain: "Test", code: 0)
-            client.complete(with: clientError)
-        })
-    }
-    
     func test_load_deliversErrorOnNon2xxHTTPResponse() {
         let (sut, client) = makeSUT()
         
@@ -54,7 +20,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         let samples = [200, 201, 250, 280, 299]
-        
+
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: failure(.invalidData), when: {
                 let invalidJSON = Data("invalid json".utf8)
@@ -65,9 +31,9 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_deliversNoItemsOn2xxHTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
-        
+
         let samples = [200, 201, 250, 280, 299]
-        
+
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .success([]), when: {
                 let emptyListJSON = makeItemsJSON([])
@@ -84,7 +50,6 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
             message: "a message",
             createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
             username: "a username")
-
         
         let item2 = makeItem(
             id: UUID(),
@@ -95,7 +60,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         let items = [item1.model, item2.model]
         
         let samples = [200, 201, 250, 280, 299]
-        
+
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .success(items), when: {
                 let json = makeItemsJSON([item1.json, item2.json])
@@ -103,21 +68,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
             })
         }
     }
-    
-    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
-        let url = URL(string: "http://any-url.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(url: url, client: client)
         
-        var capturedResults = [RemoteImageCommentsLoader.Result]()
-        sut?.load { capturedResults.append($0) }
-        
-        sut = nil
-        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
-        
-        XCTAssertTrue(capturedResults.isEmpty)
-    }
-    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!, file: StaticString = #file, line: UInt = #line) -> (sut: RemoteImageCommentsLoader, client: HTTPClientSpy) {
@@ -131,7 +82,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     private func failure(_ error: RemoteImageCommentsLoader.Error) -> RemoteImageCommentsLoader.Result {
         return .failure(error)
     }
-    
+        
     private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]) {
         let item = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
         
@@ -174,5 +125,5 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         
         wait(for: [exp], timeout: 1.0)
     }
-    
+
 }
