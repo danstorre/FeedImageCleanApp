@@ -1,35 +1,44 @@
 import Foundation
 
- public final class LoadResourcePresenter {
-     private let feedView: FeedView
-     private let loadingView: FeedLoadingView
-     private let errorView: FeedErrorView
+public protocol ResourceView {
+    func display(_ viewModel: String)
+}
 
-     private var feedLoadError: String {
-         return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR",
-                 tableName: "Feed",
-                 bundle: Bundle(for: FeedPresenter.self),
-                 comment: "Error message displayed when we can't load the image feed from the server")
-     }
-
-     public init(feedView: FeedView, loadingView: FeedLoadingView, errorView: FeedErrorView) {
-         self.feedView = feedView
-         self.loadingView = loadingView
-         self.errorView = errorView
-     }
-
-     public func didStartLoading() {
-         errorView.display(.noError)
-         loadingView.display(FeedLoadingViewModel(isLoading: true))
-     }
-
-     public func didFinishLoadingFeed(with feed: [FeedImage]) {
-         feedView.display(FeedViewModel(feed: feed))
-         loadingView.display(FeedLoadingViewModel(isLoading: false))
-     }
-
-     public func didFinishLoadingFeed(with error: Error) {
-         errorView.display(.error(message: feedLoadError))
-         loadingView.display(FeedLoadingViewModel(isLoading: false))
-     }
- }
+public final class LoadResourcePresenter {
+    public typealias Mapper = (String) -> String
+    
+    private let resourceView: ResourceView
+    private let loadingView: FeedLoadingView
+    private let errorView: FeedErrorView
+    private let mapper: Mapper
+    
+    private var feedLoadError: String {
+        return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR",
+                                 tableName: "Feed",
+                                 bundle: Bundle(for: FeedPresenter.self),
+                                 comment: "Error message displayed when we can't load the image feed from the server")
+    }
+    
+    public init(resourceView: ResourceView, loadingView: FeedLoadingView, errorView: FeedErrorView, mapper: @escaping Mapper) {
+        self.resourceView = resourceView
+        
+        self.loadingView = loadingView
+        self.errorView = errorView
+        self.mapper = mapper
+    }
+    
+    public func didStartLoading() {
+        errorView.display(.noError)
+        loadingView.display(FeedLoadingViewModel(isLoading: true))
+    }
+    
+    public func didFinishLoading(with resource: String) {
+        resourceView.display(mapper(resource))
+        loadingView.display(FeedLoadingViewModel(isLoading: false))
+    }
+    
+    public func didFinishLoadingFeed(with error: Error) {
+        errorView.display(.error(message: feedLoadError))
+        loadingView.display(FeedLoadingViewModel(isLoading: false))
+    }
+}
