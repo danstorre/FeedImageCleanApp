@@ -1,52 +1,24 @@
-import XCTest
-import EssentialFeediOS
-@testable import EssentialFeed
+//
+//  XCTest+Snapshots.swift
+//  EssentialFeediOSTests
+//
+//  Created by Daniel Torres on 11/28/22.
+//  Copyright © 2022 Essential Developer. All rights reserved.
+//
 
-final class ListSnapshotsTests: XCTestCase {
-    
-    func test_emptyFeed() {
-        let sut = makeSUT()
-        
-        sut.display(emptyFeed())
-        
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "EMPTY_LIST_light")
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "EMPTY_LIST_dark")
-    }
-    
-    func test_listWithErrorMessage() {
-        let sut = makeSUT()
-        
-        sut.display(.error(message: "This is a\nmulti-line\nerror message"))
-        
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "LIST_WITH_ERROR_MESSAGE_light")
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "LIST_WITH_ERROR_MESSAGE_dark")
-    }
-    
-    // MARK: - Helpers
-    private func makeSUT() -> ListViewController {
-        let bundle = Bundle(for: ListViewController.self)
-        let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
-        let controller = storyboard.instantiateInitialViewController() as! ListViewController
-        controller.loadViewIfNeeded()
-        controller.tableView.showsVerticalScrollIndicator = false
-        controller.tableView.showsHorizontalScrollIndicator = false
-        return controller
-    }
-    
-    private func emptyFeed() -> [FeedImageCellController] {
-        return []
-    }
-    
+import XCTest
+
+extension XCTestCase {
     private func makeSnapshotURLFromTestBundle(with name: String) -> URL? {
         let testBundle = Bundle(for: FeedSnapshotTests.self)
         return testBundle.url(forResource: name, withExtension: "png")
     }
-    
+
     private func storedSnapshotData(from url: URL, file: StaticString = #file, line: UInt = #line) -> Data? {
         return try? Data(contentsOf: url)
     }
-    
-    private func assert(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
+
+    func assert(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
         let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
         
         guard let storedImageURL = makeSnapshotURLFromTestBundle(with: name) else {
@@ -70,8 +42,8 @@ final class ListSnapshotsTests: XCTestCase {
             XCTFail("New snapshot does not match stored snapshot. New snapshot URL: \(temporarySnapshotURL), Stored snapshot URL: \(snapshotURL)", file: file, line: line)
         }
     }
-    
-    private func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
+
+    func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
         guard let snapshotData = snapshot.pngData() else {
             XCTFail("Failed to generate PNG data representation from snapshot", file: file, line: line)
             return
@@ -89,18 +61,20 @@ final class ListSnapshotsTests: XCTestCase {
             )
             
             try snapshotData.write(to: snapshotURL)
+            
+            XCTFail("Record succeeded - use `assert` to compare the snapshot from now on.", file: file, line: line)
         } catch {
             XCTFail("Failed to record snapshot with error: \(error)", file: file, line: line)
         }
     }
-    
+
     private func makeSnapshotURL(named name: String, file: StaticString = #file) -> URL {
         return URL(fileURLWithPath: String(describing: file))
             .deletingLastPathComponent()
             .appendingPathComponent("snapshots")
             .appendingPathComponent("\(name).png")
     }
-    
+
     private func makeSnapshotData(for snapshot: UIImage, file: StaticString = #file, line: UInt = #line) -> Data? {
         guard let data = snapshot.pngData() else {
             XCTFail("Failed to generate PNG data representation from snapshot", file: file, line: line)
@@ -109,5 +83,5 @@ final class ListSnapshotsTests: XCTestCase {
         
         return data
     }
-    
+
 }
