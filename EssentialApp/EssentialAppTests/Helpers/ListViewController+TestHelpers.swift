@@ -21,6 +21,7 @@ extension ListViewController {
 		return feedImageView(at: index) as? FeedImageCell
 	}
     
+    @discardableResult
     func simulateFeedImageBecomingVisibleAgain(at row: Int) -> FeedImageCell? {
         let view = simulateFeedImageViewNotVisible(at: row)
         
