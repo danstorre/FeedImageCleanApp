@@ -15,9 +15,13 @@ extension FeedUIIntegrationTests {
 		
         private var feedRequests = [PassthroughSubject<[FeedImage], Error>]()
 		
-		var loadFeedCallCount: Int {
+		var loadCommentsCallCount: Int {
 			return feedRequests.count
 		}
+        
+        var loadFeedCallCount: Int {
+            return feedRequests.count
+        }
 		
         func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
             let publisher = PassthroughSubject<[FeedImage], Error>()
