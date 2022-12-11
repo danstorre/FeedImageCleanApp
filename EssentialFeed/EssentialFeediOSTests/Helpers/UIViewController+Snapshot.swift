@@ -1,7 +1,3 @@
-//
-//  Copyright © 2019 Essential Developer. All rights reserved.
-//
-
 import UIKit
 
 extension UIViewController {
@@ -54,7 +50,7 @@ private final class SnapshotWindow: UIWindow {
     override var traitCollection: UITraitCollection {
         return UITraitCollection(traitsFrom: [super.traitCollection, configuration.traitCollection])
     }
-
+    
     func snapshot() -> UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: bounds, format: .init(for: traitCollection))
         return renderer.image { action in

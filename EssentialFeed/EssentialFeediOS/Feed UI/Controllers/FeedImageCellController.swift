@@ -6,27 +6,26 @@ import UIKit
 import EssentialFeed
 
 public protocol FeedImageCellControllerDelegate {
-	func didRequestImage()
-	func didCancelImageRequest()
+    func didRequestImage()
+    func didCancelImageRequest()
 }
 
 public final class FeedImageCellController: NSObject {
     public typealias ResourceViewModel = UIImage
     
     private let viewModel: FeedImageViewModel
-	private let delegate: FeedImageCellControllerDelegate
+    private let delegate: FeedImageCellControllerDelegate
     private let selection: () -> Void
-	private var cell: FeedImageCell?
-	
+    private var cell: FeedImageCell?
+    
     public init(viewModel: FeedImageViewModel, delegate: FeedImageCellControllerDelegate, selection: @escaping () -> Void) {
         self.viewModel = viewModel
-		self.delegate = delegate
+        self.delegate = delegate
         self.selection = selection
-	}
+    }
 }
-
+    
 extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
-	    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
@@ -44,6 +43,11 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
         return cell!
     }
     
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cell = cell as? FeedImageCell
+        delegate.didRequestImage()
+    }
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selection()
     }
@@ -59,8 +63,8 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         cancelLoad()
     }
-    
-    private func cancelLoad() {
+
+    public func cancelLoad() {
         releaseCellForReuse()
         delegate.didCancelImageRequest()
     }
@@ -69,8 +73,9 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
         cell = nil
     }
 }
- 
+
 extension FeedImageCellController: ResourceView, ResourceLoadingView, ResourceErrorView {
+    
     public func display(_ viewModel: UIImage) {
         cell?.feedImageView.setImageAnimated(viewModel)
     }

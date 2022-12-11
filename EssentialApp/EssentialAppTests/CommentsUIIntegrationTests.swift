@@ -1,4 +1,4 @@
-//	
+//
 // Copyright © 2020 Essential Developer. All rights reserved.
 //
 
@@ -135,7 +135,7 @@ class CommentsUIIntegrationTests: XCTestCase {
         var sut: ListViewController?
         
         autoreleasepool {
-             sut = CommentsUIComposer.commentsComposedWith(commentsLoader: {
+            sut = CommentsUIComposer.commentsComposedWith(commentsLoader: {
                 PassthroughSubject<[ImageComment], Error>()
                     .handleEvents(receiveCancel: {
                         cancelCallCount += 1
@@ -144,7 +144,7 @@ class CommentsUIIntegrationTests: XCTestCase {
             
             sut?.loadViewIfNeeded()
         }
-                
+        
         XCTAssertEqual(cancelCallCount, 0)
         
         sut = nil
