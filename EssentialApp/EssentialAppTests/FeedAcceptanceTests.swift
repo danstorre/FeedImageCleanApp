@@ -150,8 +150,8 @@ final class FeedAcceptanceTests: XCTestCase {
     
     private func makeData(for url: URL) -> Data {
         switch url.path {
-        case "/image-1": return makeImageData0()
-        case "/image-2": return makeImageData1()
+        case "/image-0": return makeImageData0()
+        case "/image-1": return makeImageData1()
             
         case "/essential-feed/v1/feed":
             return makeFeedData()
