@@ -1,3 +1,7 @@
+//	
+// Copyright © 2020 Essential Developer. All rights reserved.
+//
+
 import UIKit
 import Combine
 import EssentialFeed
@@ -5,34 +9,32 @@ import EssentialFeediOS
 
 public final class CommentsUIComposer {
     private init() {}
-
+    
     private typealias CommentsPresentationAdapter = LoadResourcePresentationAdapter<[ImageComment], CommentsViewAdapter>
-
+    
     public static func commentsComposedWith(
         commentsLoader: @escaping () -> AnyPublisher<[ImageComment], Error>
     ) -> ListViewController {
         let presentationAdapter = CommentsPresentationAdapter(loader: commentsLoader)
-
+        
         let commentsController = makeCommentsViewController(title: ImageCommentsPresenter.title)
         commentsController.onRefresh = presentationAdapter.loadResource
-
+        
         presentationAdapter.presenter = LoadResourcePresenter(
             resourceView: CommentsViewAdapter(controller: commentsController),
             loadingView: WeakRefVirtualProxy(commentsController),
             errorView: WeakRefVirtualProxy(commentsController),
-            mapper: { model in
-                return ImageCommentsPresenter.map(model)
-            })
-
+            mapper: { ImageCommentsPresenter.map($0) })
+        
         return commentsController
     }
 
     private static func makeCommentsViewController(title: String) -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "ImageComments", bundle: bundle)
-        let feedController = storyboard.instantiateInitialViewController() as! ListViewController
-        feedController.title = title
-        return feedController
+        let controller = storyboard.instantiateInitialViewController() as! ListViewController
+        controller.title = title
+        return controller
     }
 }
 
@@ -44,8 +46,8 @@ final class CommentsViewAdapter: ResourceView {
     }
     
     func display(_ viewModel: ImageCommentsViewModel) {
-        controller?.display(viewModel.comments.map { model in
-            return CellController(id: model, ImageCommentCellController(model: model))
+        controller?.display(viewModel.comments.map { viewModel in
+            CellController(id: viewModel, ImageCommentCellController(model: viewModel))
         })
     }
 }

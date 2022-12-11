@@ -1,13 +1,17 @@
+//
+//  Copyright © 2020 Essential Developer. All rights reserved.
+//
+
 import Foundation
 import Combine
 import EssentialFeed
 
 public extension HTTPClient {
     typealias Publisher = AnyPublisher<(Data, HTTPURLResponse), Error>
-
+    
     func getPublisher(url: URL) -> Publisher {
         var task: HTTPClientTask?
-
+        
         return Deferred {
             Future { completion in
                 task = self.get(from: url, completion: completion)
@@ -117,7 +121,7 @@ extension DispatchQueue {
             guard isMainQueue() else {
                 return DispatchQueue.main.schedule(options: options, action)
             }
-            
+                        
             action()
         }
         

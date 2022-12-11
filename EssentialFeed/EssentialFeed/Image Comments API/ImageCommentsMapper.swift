@@ -1,9 +1,5 @@
-//
-//  ImageCommentsMapper.swift
-//  EssentialFeed
-//
-//  Created by Daniel Torres on 11/24/22.
-//  Copyright © 2022 Essential Developer. All rights reserved.
+//	
+// Copyright © 2020 Essential Developer. All rights reserved.
 //
 
 import Foundation
@@ -39,7 +35,7 @@ public final class ImageCommentsMapper {
         guard isOK(response), let root = try? decoder.decode(Root.self, from: data) else {
             throw Error.invalidData
         }
-        
+
         return root.comments
     }
     
