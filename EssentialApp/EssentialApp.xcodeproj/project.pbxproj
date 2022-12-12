@@ -36,6 +36,7 @@
 		FB62B0432925C57B00E28AF7 /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62B0422925C57B00E28AF7 /* FeedAcceptanceTests.swift */; };
 		FB83F479292F0FE60096153E /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83F478292F0FE60096153E /* CombineHelpers.swift */; };
 		FBC6BB5529466D5500F72C25 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC6BB5429466D5500F72C25 /* NullStore.swift */; };
+		FBC6BB572947F39F00F72C25 /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC6BB562947F39F00F72C25 /* InMemoryFeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		FB62B0422925C57B00E28AF7 /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 		FB83F478292F0FE60096153E /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		FBC6BB5429466D5500F72C25 /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
+		FBC6BB562947F39F00F72C25 /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				FB62B0362925C3D300E28AF7 /* FeedUIIntegrationTests+LoaderSpy.swift */,
 				FB62B0352925C3D300E28AF7 /* FeedUIIntegrationTests+Assertions.swift */,
 				082C00052359E4C6008927D3 /* SharedTestHelpers.swift */,
+				FBC6BB562947F39F00F72C25 /* InMemoryFeedStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				FB62B03F2925C3D300E28AF7 /* FeedUIIntegrationTests+Assertions.swift in Sources */,
 				082C00042359E46C008927D3 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				FB62B0212925C25800E28AF7 /* SceneDelegateTests.swift in Sources */,
+				FBC6BB572947F39F00F72C25 /* InMemoryFeedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
