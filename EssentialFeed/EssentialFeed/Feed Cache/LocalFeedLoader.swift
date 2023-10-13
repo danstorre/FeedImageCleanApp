@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+//  Copyright © Essential Developer. All rights reserved.
 //
 
 import Foundation
@@ -16,34 +16,31 @@ public final class LocalFeedLoader {
 
 extension LocalFeedLoader: FeedCache {
 	public func save(_ feed: [FeedImage]) throws {
-        try store.deleteCachedFeed()
-        try store.insert(feed.toLocal(), timestamp: currentDate())
+		try store.deleteCachedFeed()
+		try store.insert(feed.toLocal(), timestamp: currentDate())
 	}
 }
 
 extension LocalFeedLoader {
-
 	public func load() throws -> [FeedImage] {
-        if let cache = try store.retrieve(), FeedCachePolicy.validate(cache.timestamp, against: currentDate()) {
-            return cache.feed.toModels()
-        }
-        
-        return []
+		if let cache = try store.retrieve(), FeedCachePolicy.validate(cache.timestamp, against: currentDate()) {
+			return cache.feed.toModels()
+		}
+		return []
 	}
 }
 
 extension LocalFeedLoader {
-    private struct InvalidCache: Error {}
-
+	private struct InvalidCache: Error {}
+	
 	public func validateCache() throws {
-        do {
-            if let cache = try store.retrieve(),
-               !FeedCachePolicy.validate(cache.timestamp, against: self.currentDate()) {
-                throw InvalidCache()
-            }
-        } catch {
-            try store.deleteCachedFeed()
-        }
+		do {
+			if let cache = try store.retrieve(), !FeedCachePolicy.validate(cache.timestamp, against: currentDate()) {
+				throw InvalidCache()
+			}
+		} catch {
+			try store.deleteCachedFeed()
+		}
 	}
 }
 

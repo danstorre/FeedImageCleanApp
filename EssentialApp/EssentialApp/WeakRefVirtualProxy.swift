@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+//  Copyright © Essential Developer. All rights reserved.
 //
 
 import UIKit
@@ -26,7 +26,7 @@ extension WeakRefVirtualProxy: ResourceLoadingView where T: ResourceLoadingView 
 }
 
 extension WeakRefVirtualProxy: ResourceView where T: ResourceView, T.ResourceViewModel == UIImage {
-     func display(_ model: UIImage) {
-         object?.display(model)
-     }
- }
+	func display(_ model: UIImage) {
+		object?.display(model)
+	}
+}

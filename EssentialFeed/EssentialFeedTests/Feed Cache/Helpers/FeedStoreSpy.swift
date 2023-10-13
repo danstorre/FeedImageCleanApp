@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+// Copyright © Essential Developer. All rights reserved.
 //
 
 import Foundation
@@ -14,13 +14,13 @@ class FeedStoreSpy: FeedStore {
 	
 	private(set) var receivedMessages = [ReceivedMessage]()
 	
-    private var deletionResult: Result<Void, Error>?
-    private var insertionResult: Result<Void, Error>?
-    private var retrievalResult: Result<CachedFeed?, Error>?
+	private var deletionResult: Result<Void, Error>?
+	private var insertionResult: Result<Void, Error>?
+	private var retrievalResult: Result<CachedFeed?, Error>?
 	
 	func deleteCachedFeed() throws {
 		receivedMessages.append(.deleteCachedFeed)
-        try deletionResult?.get()
+		try deletionResult?.get()
 	}
 	
 	func completeDeletion(with error: Error) {
@@ -28,36 +28,36 @@ class FeedStoreSpy: FeedStore {
 	}
 	
 	func completeDeletionSuccessfully() {
-        deletionResult = .success(())
+		deletionResult = .success(())
 	}
 	
 	func insert(_ feed: [LocalFeedImage], timestamp: Date) throws {
 		receivedMessages.append(.insert(feed, timestamp))
-        try insertionResult?.get()
+		try insertionResult?.get()
 	}
 	
 	func completeInsertion(with error: Error) {
-        insertionResult = .failure(error)
+		insertionResult = .failure(error)
 	}
 	
 	func completeInsertionSuccessfully() {
-        insertionResult = .success(())
+		insertionResult = .success(())
 	}
 	
-    func retrieve() throws -> CachedFeed? {
+	func retrieve() throws -> CachedFeed? {
 		receivedMessages.append(.retrieve)
-        return try retrievalResult?.get()
+		return try retrievalResult?.get()
 	}
 	
 	func completeRetrieval(with error: Error) {
-        retrievalResult = .failure(error)
+		retrievalResult = .failure(error)
 	}
 	
 	func completeRetrievalWithEmptyCache() {
-        retrievalResult = .success(.none)
+		retrievalResult = .success(.none)
 	}
 	
-	func completeRetrieval(with feed: [LocalFeedImage], timestamp: Date, at index: Int = 0) {
-        retrievalResult = .success(CachedFeed(feed: feed, timestamp: timestamp))
+	func completeRetrieval(with feed: [LocalFeedImage], timestamp: Date) {
+		retrievalResult = .success(CachedFeed(feed: feed, timestamp: timestamp))
 	}
 }

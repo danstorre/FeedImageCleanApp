@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+//  Copyright © Essential Developer. All rights reserved.
 //
 
 import Foundation
@@ -18,21 +18,21 @@ func anyData() -> Data {
 }
 
 func uniqueFeed() -> [FeedImage] {
-    return [FeedImage(id: UUID(), description: "any", location: "any", url: anyURL())]
+	return [FeedImage(id: UUID(), description: "any", location: "any", url: anyURL())]
 }
 
 private class DummyView: ResourceView {
-    func display(_ viewModel: Any) {}
+	func display(_ viewModel: Any) {}
 }
 
 var loadError: String {
-    LoadResourcePresenter<Any, DummyView>.loadError
+	LoadResourcePresenter<Any, DummyView>.loadError
 }
 
 var feedTitle: String {
-    FeedPresenter.title
+	FeedPresenter.title
 }
 
 var commentsTitle: String {
-    ImageCommentsPresenter.title
+	ImageCommentsPresenter.title
 }

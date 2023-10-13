@@ -1,19 +1,18 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+//  Copyright © Essential Developer. All rights reserved.
 //
 
 import UIKit
 
 extension UIImage {
 	static func make(withColor color: UIColor) -> UIImage {
-        let imageSize = CGSize(width: 1, height: 1)
-        let format = UIGraphicsImageRendererFormat(for: .current)
-        format.scale = 1
-        let renderer = UIGraphicsImageRenderer.init(size: imageSize, format: format)
-        
-        return renderer.image { context in
-            color.setFill()
-            context.fill(.init(origin: .zero, size: imageSize))
-        }
+		let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+		let format = UIGraphicsImageRendererFormat()
+		format.scale = 1
+
+		return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
+			color.setFill()
+			rendererContext.fill(rect)
+		}
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Essential Developer. All rights reserved.
+//  Copyright © Essential Developer. All rights reserved.
 //
 
 import CoreData
@@ -17,15 +17,14 @@ extension ManagedCache {
 		return try context.fetch(request).first
 	}
 	
+	static func deleteCache(in context: NSManagedObjectContext) throws {
+		try find(in: context).map(context.delete).map(context.save)
+	}
+	
 	static func newUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
-        try deleteCache(in: context)
+		try deleteCache(in: context)
 		return ManagedCache(context: context)
 	}
-    
-    static func deleteCache(in context: NSManagedObjectContext) throws {
-        try find(in: context).map(context.delete).map(context.save)
-    }
-
 	
 	var localFeed: [LocalFeedImage] {
 		return feed.compactMap { ($0 as? ManagedFeedImage)?.local }
